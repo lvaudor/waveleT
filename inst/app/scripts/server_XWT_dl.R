@@ -1,0 +1,70 @@
+
+####################################################
+output$downloadFigXWT <- downloadHandler(
+  filename=function(){
+    fig_or_info="Fig"
+    analysis="XWT"
+    variable=paste0(fy1(),"_",fy2())
+    info=input$XWT_info
+    typelabel=input$XWT_plot_type
+    type=unlist(strsplit(typelabel,split=""))[1]
+    period=NA;if(type=="2"){period=input$xwt_period}
+    name=buildname(fig_or_info=fig_or_info,
+                   analysis=analysis,
+                   variable=variable,
+                   type=type,
+                   period=period,
+                   info=info)
+    return(name)
+  },
+  content=function(file){
+    fgraph=get(input$graph_format)
+    fgraph(file,width=input$width,height=input$height)
+    f_plotXWT()
+    dev.off()
+  }
+)
+####################################################
+output$downloadInfoXWT <- downloadHandler(
+  filename=function(){
+    fig_or_info="Info"
+    analysis="XWT"
+    variable=paste0(fy1(),"_",fy2())
+    info=input$XWT_info
+    typelabel=input$XWT_plot_type
+    type=unlist(strsplit(typelabel,split=""))[1]
+    period=NA;if(type=="2"){period=input$xwt_period}
+    name=buildname(fig_or_info=fig_or_info,
+                   analysis=analysis,
+                   variable=variable,
+                   type=type,
+                   period=period,
+                   info=info)
+    return(name)
+  },
+  content=function(file){
+    if(input$XWT_info!="rsq"){mywt=XWT()}
+    if(input$XWT_info=="rsq"){mywt=WTC()}
+    myinfo=plotWT(mywt,
+                  data=xy1y2(),
+                  plot.type=input$XWT_plot_type,
+                  plot.sig=input$XWT_plot_sig,
+                  alpha=input$XWT_alpha,
+                  info=input$XWT_info,
+                  mother=input$XWT_filter,
+                  myperiod=as.numeric(input$XWT_period),
+                  plot.maxima=input$XWT_plot.maxima,
+                  plot.minima=input$XWT_plot.minima,
+                  step=fstep(),
+                  real_or_sim=input$real_or_sim,
+                  x_is_date=input$x_is_date,
+                  xlim=input$xlimxwt,
+                  ylim=input$ylimxwt
+    )
+    write.table(myinfo,
+                file,
+                sep=";",
+                row.names=FALSE)
+    return(myinfo)
+  }
+)

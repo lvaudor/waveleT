@@ -1,0 +1,49 @@
+output$dltabRaw1 <- downloadHandler(
+  filename=function(){
+    variable=fy1()
+    name=paste0("Tab_Raw_",variable,".csv")
+    return(name)
+  },
+  content=function(file){
+    write.table(xy1y2()[,c(1,2)],
+                file,
+                sep=";",
+                row.names=FALSE)}
+)
+output$dltabRaw2 <- downloadHandler(
+  filename=function(){
+    variable=fy2()
+    name=paste0("Tab_Raw_",variable,".csv")
+    return(name)
+  },
+  content=function(file){
+    write.table(xy1y2()[,c(1,3)],
+                file,
+                sep=";",
+                row.names=FALSE)}
+)
+output$dlfigRaw1 <- downloadHandler(
+  filename=function(){
+    variable=fy1()
+    name=paste0("Fig_Raw_",variable,".",input$graph_format)
+    return(name)
+  },
+  content=function(file){
+    fgraph=get(input$graph_format)
+    fgraph(file,width=input$width,height=input$height)
+    f_plotRaw1()
+    dev.off()
+  }
+)
+output$dlfigRaw2 <- downloadHandler(
+  filename=function(){
+    variable=fy2()
+    name=paste0("Fig_Raw_",variable,".",input$graph_format)
+    },
+  content=function(file){
+    fgraph=get(input$graph_format)
+    fgraph(file,width=input$width,height=input$height)
+    f_plotRaw2()
+    dev.off()
+  }
+)

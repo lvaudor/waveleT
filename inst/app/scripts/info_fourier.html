@@ -1,0 +1,37 @@
+<p>
+A signal <i>f(x)</i> can be described as a sum of complex sinusoids with varying frequencies <i>&#969</i>.
+</p>
+<h4>Fourier transform:</h4>
+<p>
+The Fourier transform transforms <i>f(x)</i> into a complex function <i>g(&#969)</i>.<br>
+$$
+g(\omega)=\frac{1}{T}\int_{-T/2}^{T/2}f(t) e^{-2i\pi\omega t}dt  
+$$
+</p>
+<p>
+Fourier frequencies <i>&#969</i> correspond to \(1/n,2/n,3/n,... (n-1)/n\) where <i>n</i> is the length of the signal.
+</p>
+<p>
+In this application the Fourier transform is computed through a Fast Discrete Fourier Transform (FFT). The function used internally is the <a  href='https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fft.html' target='_blank'>'fft' function of the R package 'stats'</a>
+<br>
+<h4>Fourier spectrum:</h4>
+<p>
+The Fourier spectrum describes the amplitude of all the sinusoids with Fourier frequencies. The amplitude can be represented either according to Fourier frequencies <i>&#969</i> or (as is the case here), according to the corresponding periods \(T=\frac{\Delta x}{\omega}\).
+<p>The Fourier spectrum <i>h(T)</i>, hence corresponds to:
+$$h(T)=h\left(\frac{\Delta x}{\omega}\right)=\mid g(\omega)\mid$$
+</p>
+<h4>Limitation:</h4>
+<p>Contrary to wavelet spectra, Fourier spectra cannot adequately describe non-stationary signals.
+</p>
+<h4>Reference</h4>
+<p>For more information about the Fourier transform, please refer to the first part of this very helpful tutorial:
+</p>
+<div class="csl-entry">
+<a href="http://users.rowan.edu/~polikar/WAVELETS/WTtutorial.html" target="_blank">
+Polikar, Robi. 1995.
+"The Wavelet Tutorial." 
+<i>The Engineer's Ultimate Guide to Wavelet
+Analysis: The Wavelet Tutorial</i>
+</a>
+</div>
+

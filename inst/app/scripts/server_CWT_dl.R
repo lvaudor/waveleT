@@ -1,0 +1,139 @@
+
+
+output$downloadFigCWT1 <- downloadHandler(
+  filename=function(){
+    fig_or_info="Fig"
+    analysis="CWT"
+    variable=fy1()
+    info=input$info
+    typelabel=input$CWT_plot_type1
+    type=unlist(strsplit(typelabel,split=""))[1]
+    period=NA;if(type=="2"){period=input$period1;print("pouet")}
+    name=buildname(fig_or_info=fig_or_info,
+                   analysis=analysis,
+                   variable=variable,
+                   type=type,
+                   period=period,
+                   info=info)
+    return(name)
+  },
+  content=function(file){
+    fgraph=get(input$graph_format)
+    fgraph(file,width=input$width,height=input$height)
+    f_plotCWT1()
+    dev.off()
+  }
+)
+
+output$downloadFigCWT2 <- downloadHandler(
+  filename=function(){
+    fig_or_info="Fig"
+    analysis="CWT"
+    variable=fy2()
+    info=input$info
+    typelabel=input$CWT_plot_type2
+    type=unlist(strsplit(typelabel,split=""))[1]
+    period=NA;if(type=="2"){period=input$period2}
+    name=buildname(fig_or_info=fig_or_info,
+                   analysis=analysis,
+                   variable=variable,
+                   type=type,
+                   period=period,
+                   info=info)
+    return(name)
+  },
+  content=function(file){
+    fgraph=get(input$graph_format)
+    fgraph(file,width=input$width,height=input$height)
+    f_plotCWT2()
+    dev.off()
+  }
+)
+
+
+output$downloadInfoCWT1 <- downloadHandler(
+  filename=function(){
+    fig_or_info="Info"
+    analysis="CWT"
+    variable=fy1()
+    info=input$info
+    typelabel=input$CWT_plot_type1
+    type=unlist(strsplit(typelabel,split=""))[1]
+    period=NA;if(type=="2"){period=input$period1}
+    name=buildname(fig_or_info=fig_or_info,
+                   analysis=analysis,
+                   variable=variable,
+                   type=type,
+                   period=period,
+                   info=info)
+    return(name)
+  },
+  content=function(file){
+    mywt=CWT1()
+    myinfo=plotWT(mywt,
+                  data=xy1y2()[,c(1,2)],
+                  plot.type=input$CWT_plot_type1,
+                  plot.sig=input$plot.sig,
+                  alpha=input$alpha,
+                  info=input$info,
+                  mother=input$CWT_filter,
+                  myperiod=as.numeric(input$period1),
+                  plot.maxima=input$plot.maxima1,
+                  plot.minima=input$plot.minima1,
+                  step=fstep(),
+                  real_or_sim=input$real_or_sim,
+                  x_is_date=input$x_is_date,
+                  plot.cb=input$plot.cb,
+                  xlim=input$xlimcwt1,
+                  ylim=input$ylimcwt1
+    )
+    write.table(myinfo,
+                file,
+                sep=";",
+                row.names=FALSE)
+    return(myinfo)
+  }
+)
+
+output$downloadInfoCWT2 <- downloadHandler(
+  filename=function(){
+    fig_or_info="Info"
+    analysis="CWT"
+    variable=fy2()
+    info=input$info
+    typelabel=input$CWT_plot_type2
+    type=unlist(strsplit(typelabel,split=""))[1]
+    period=NA;if(type=="2"){period=input$period2}
+    name=buildname(fig_or_info=fig_or_info,
+                   analysis=analysis,
+                   variable=variable,
+                   type=type,
+                   period=period,
+                   info=info)
+    return(name)
+  },
+  content=function(file){
+    mywt=CWT2()
+    myinfo=plotWT(mywt,
+                  data=xy1y2()[,c(1,3)],
+                  plot.type=input$CWT_plot_type2,
+                  plot.sig=input$plot.sig,
+                  alpha=input$alpha,
+                  info=input$info,
+                  mother=input$CWT_filter,
+                  myperiod=as.numeric(input$period2),
+                  plot.maxima=input$plot.maxima2,
+                  plot.minima=input$plot.minima2,
+                  real_or_sim=input$real_or_sim,
+                  x_is_date=input$x_is_date,
+                  plot.cb=input$plot.cb, 
+                  xlim=input$xlimcwt2,
+                  ylim=input$ylimcwt2
+    )
+    write.table(myinfo,
+                file,
+                sep=";",
+                row.names=FALSE)
+    return(myinfo)
+  }
+)
