@@ -1,0 +1,18 @@
+---
+title: "WaveleT: Wavelet ToolKat interface to analyze series through wavelet transforms"
+author: "Lise Vaudor, ISIG, UMR5600 EVS"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to WaveleT}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+waveleT is a package which allows you to launch an interactive application, the Wavelets ToolKat, via a simple call to the function waveleT:
+
+```r
+waveleT()
+```
+
+

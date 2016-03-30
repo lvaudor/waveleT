@@ -1,15 +1,10 @@
-#' BWEGEGEK!
+#' Find path to waveleT package
 #'
-#' This function allows you to express your love of cats.
-#' @param love Do you love cats? Defaults to TRUE.
-#' @keywords cats
+#' This function is used internally to find package's path.
+#' @keywords waveleT, wavelet, toolkat
 #' @export
-#' @examples
-#' cat_function()
 
 findmypath=function(dir,file){
   path=system.file(dir,file,package="waveleT")
-  if(dir==""){path=file}
-  if(path==""){path=dir}
   return(path)
 }

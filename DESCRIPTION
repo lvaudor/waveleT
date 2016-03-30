@@ -7,3 +7,6 @@ Depends: R (>= 3.2.2), shiny, wavelets, biwavelet
 License: What license is it under?
 LazyData: true
 RoxygenNote: 5.0.1.9000
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
