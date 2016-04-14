@@ -113,14 +113,15 @@ fxout=reactive({
                to=mymax,
                length.out=1000)
     }
+    if(is.na(as.numeric(mystep))){
+      xout=seq(from=mymin,to=mymax,length.out=1000)
+    }
     if(!(input$x_is_date & !is.na(as.numeric(mystep)))){
       xout=seq(from=mymin,
                  to=mymax,
                  by=mystep)
     }
-    if(is.na(as.numeric(mystep))){
-      xout=seq(from=mymin,to=mymax,length.out=1000)
-    }
+
     if(length(xout)>50000){xout=seq(min(xout),to=max(xout),length.out=50000)}
   }
   return(xout)

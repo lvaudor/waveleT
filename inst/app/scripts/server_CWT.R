@@ -89,7 +89,14 @@ plotWT_type1=function(data,
                       plot.cb,
                       xlim,
                       ylim){
-  if(plot.cb){par(mar=c(4,4,3,8),las=1)}
+  #### dates
+  print(xlim)
+#   xlim1=which(data[,1]==xlim[1])
+#   xlim2=which(data[,1]==xlim[2])
+#   print(xlim1)
+#   print(xlim2)
+#   xlim=c(xlim1,xlim2)
+#   if(plot.cb){par(mar=c(4,4,3,8),las=1)}
   if(mywt$type!="wtc" & mywt$type!="xwt"){
     mymain=paste(colnames(data)[2],
                  ": ",info, sep="")
