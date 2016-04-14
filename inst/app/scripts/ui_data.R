@@ -1,4 +1,4 @@
-tabPanel("Data",
+tabPanel("DATA",
          wellPanel(
           fluidRow(
              column(width=3,

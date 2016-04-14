@@ -1,13 +1,13 @@
 shinyUI(
 navbarPage("My Wavelet Toolkat", #theme="bootstrap.css",
-  tabPanel(title="Presentation",
+  tabPanel(title="INFO",
            icon=icon("info",lib="font-awesome"),
            source(findmypath("app/scripts","ui_presentation.R"))$value),
-  tabPanel(title="Data",
+  tabPanel(title="DATA",
            icon=icon("folder",lib="font-awesome"),
            source(findmypath("app/scripts","ui_data.R"))$value
   ),
-  tabPanel(title="Analyses",
+  tabPanel(title="ANALYSES",
            icon=icon("cogs",lib="font-awesome"),
              tabsetPanel(
                tabPanel(title="Fourier",
@@ -39,7 +39,7 @@ navbarPage("My Wavelet Toolkat", #theme="bootstrap.css",
                )
              )#tabsetPanel
    ),#tabPanel
-  tabPanel("Options",
+  tabPanel("OPTIONS",
            icon=icon("file-image-o",lib="font-awesome"),
            source(findmypath("app/scripts","ui_options.R"))$value)
 )#navbarPage

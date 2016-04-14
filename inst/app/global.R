@@ -1,5 +1,5 @@
 require(wavelets)
-require(biwavelets)
+require(biwavelet)
 
 
 findmypath=function(dir="",file=""){

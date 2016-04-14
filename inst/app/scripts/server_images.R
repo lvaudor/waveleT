@@ -4,7 +4,7 @@ output$mylogo <- renderImage({
 }, deleteFile = FALSE)
 
 
-for(x in 1:10){
+for(x in 0:10){
   local({  ## sans le "local" tous les outputs renvoient sur une meme image
     i=x
     output[[paste0("catpaw",i)]]=renderImage({
