@@ -1,3 +1,7 @@
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
+
 CWT1=reactive({
   wt(xy1y2()[,c(1,2)],
      mother=input$CWT_filter,
@@ -89,14 +93,7 @@ plotWT_type1=function(data,
                       plot.cb,
                       xlim,
                       ylim){
-  #### dates
-  print(xlim)
-#   xlim1=which(data[,1]==xlim[1])
-#   xlim2=which(data[,1]==xlim[2])
-#   print(xlim1)
-#   print(xlim2)
-#   xlim=c(xlim1,xlim2)
-#   if(plot.cb){par(mar=c(4,4,3,8),las=1)}
+  if(plot.cb){par(mar=c(4,4,3,8),las=1)}
   if(mywt$type!="wtc" & mywt$type!="xwt"){
     mymain=paste(colnames(data)[2],
                  ": ",info, sep="")

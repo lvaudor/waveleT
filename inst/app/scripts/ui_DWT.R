@@ -1,3 +1,7 @@
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
+
 fluidRow(
   actionButton(inputId="i8",label=imageOutput("catpaw8",height="100%", width="100%")),
   uiOutput("i8"),uiOutput("iDWT"),br(),

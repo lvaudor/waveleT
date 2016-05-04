@@ -1,3 +1,7 @@
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
+
 wellPanel(
          actionButton(inputId="i7",label=imageOutput("catpaw7",height="100%", width="100%")),
          uiOutput("i7"),

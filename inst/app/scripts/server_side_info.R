@@ -1,3 +1,7 @@
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
+
 x_l_transfo=function(x){return(exp(x*log(2))-1)}
 y_ml_transfo=function(y){return(exp(-y*log(2)))}
 y_l_transfo=function(y){return(exp(y*log(2)))}

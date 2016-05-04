@@ -1,3 +1,7 @@
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
+
 output$downloadDWT1 <- downloadHandler(
   filename=function(){paste0("data_DWT_results_",fy1(),".csv")},
   content=function(file){

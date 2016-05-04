@@ -1,3 +1,8 @@
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
+
+
 jmax1=reactive({
   n=fnr()
   L=wt.filter(input$wt_filter_1)@L

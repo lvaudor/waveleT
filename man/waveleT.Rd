@@ -7,10 +7,13 @@
 waveleT()
 }
 \description{
-This function allows you to launch the Wavelet ToolKat
+This function allows you to launch the Wavelet ToolKat interface. This is a Shiny App designed to help users analyze series through wavelet transforms.
+For more information see package's vignette.
 }
 \examples{
-graphiT()
+waveleT()
 }
-\keyword{bwegek}
+\keyword{toolkat}
+\keyword{waveleT,}
+\keyword{wavelet,}
 

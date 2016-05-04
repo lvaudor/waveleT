@@ -1,4 +1,6 @@
-
+# This file is part of the WaveleT package
+# Copyright 2015 2016 Lise Vaudor
+# This program is distributed under the GPLv3 license
 
 output$downloadFigCWT1 <- downloadHandler(
   filename=function(){
@@ -8,7 +10,7 @@ output$downloadFigCWT1 <- downloadHandler(
     info=input$info
     typelabel=input$CWT_plot_type1
     type=unlist(strsplit(typelabel,split=""))[1]
-    period=NA;if(type=="2"){period=input$period1;print("pouet")}
+    period=NA;if(type=="2"){period=input$period1}
     name=buildname(fig_or_info=fig_or_info,
                    analysis=analysis,
                    variable=variable,
