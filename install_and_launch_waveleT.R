@@ -1,4 +1,4 @@
-#depuis projet graphiT.proj
+#depuis projet waveleT.proj
 setwd("..")
 
 ## a faire tourner apres avoir depose scripts dans R
