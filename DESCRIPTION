@@ -1,9 +1,10 @@
 Package: waveleT
 Title: What the Package Does (one line, title case)
 Version: 0.0.0.9000
-Authors@R: person(first="Lise", last="Vaudor", email = "lise.vaudor@ens.lyon.fr", role = c("aut", "cre"))
+Authors@R: person("Lise", "Vaudor", email = "lise.vaudor@ens-lyon.fr", role = c("aut", "cre"))
 Description: This package launches an interactive application, the Wavelet Toolkat, which enable users to analyze series of data (time series or spatial series) through wavelet transforms in a user-friendly way.
-Depends: R (>= 3.2.2), shiny, wavelets, biwavelet
+Depends: R (>= 3.2.2)
+Imports: utils,httpuv,mime,jsonlite,xtable,digest,htmltools,R6,methods,Rcpp,tools,stats,methods,fields,foreach,Rcpp,methods,spam,maps,codetools,utils,iterators,graphics,grid,shiny,biwavelet,wavelets
 License: GPLv3
 LazyData: true
 RoxygenNote: 5.0.1.9000

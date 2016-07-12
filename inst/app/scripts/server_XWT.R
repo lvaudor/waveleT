@@ -20,7 +20,8 @@ f_plotXWT=function(){
          x_is_date=input$x_is_date,
          plot.cb=input$XWT_plot.cb,
          xlim=input$xlimxwt,
-         ylim=input$ylimxwt
+         ylim=input$ylimxwt,
+         plot.phase=input$plot.phase
   )
 }
 

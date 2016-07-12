@@ -92,7 +92,8 @@ plotWT_type1=function(data,
                       units,
                       plot.cb,
                       xlim,
-                      ylim){
+                      ylim,
+                      plot.phase){
   if(plot.cb){par(mar=c(4,4,3,8),las=1)}
   if(mywt$type!="wtc" & mywt$type!="xwt"){
     mymain=paste(colnames(data)[2],
@@ -108,6 +109,8 @@ plotWT_type1=function(data,
     plot(mywt,
          plot.sig=plot.sig,
          plot.cb=plot.cb,
+         plot.phase=plot.phase,
+         arrow.cutoff=0.5,
          main=mymain,
          xlab=colnames(data)[1],
          ylab=paste0("T",units),
@@ -121,7 +124,9 @@ plotWT_type1=function(data,
        plot.sig=plot.sig,
        type=info,
        plot.cb=plot.cb,
-       main=mymain,
+       main=mymain,         
+       plot.phase=plot.phase,
+       arrow.cutoff=0.5,
        xlab=colnames(data)[1],
        ylab=paste0("T",units),
        xaxt="n",
@@ -269,7 +274,8 @@ plotWT=function(mywt,
                 x_is_date,
                 plot.cb,
                 xlim,
-                ylim){
+                ylim,
+                plot.phase){
 par(mar=c(4,4,3,2),las=1)
 plot.sig.tmp=plot.sig
 units=""
@@ -296,7 +302,8 @@ if(mywt$type!="wt"){plot.sig.tmp=FALSE}
                         units,
                         plot.cb,
                         xlim,
-                        ylim
+                        ylim,
+                        plot.phase
                         )
   }
   ####
@@ -344,7 +351,8 @@ f_plotCWT1=function(){
          x_is_date=input$x_is_date,
          plot.cb=input$plot.cb,
          xlim=input$xlimcwt1,
-         ylim=input$ylimcwt1
+         ylim=input$ylimcwt1,
+         plot.phase=FALSE
   )
 }
 f_plotCWT2=function(){
@@ -364,7 +372,8 @@ f_plotCWT2=function(){
          x_is_date=input$x_is_date,
          plot.cb=input$plot.cb,
          xlim=input$xlimcwt2,
-         ylim=input$ylimcwt2
+         ylim=input$ylimcwt2,
+         plot.phase=FALSE
   )
 }
 
