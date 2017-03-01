@@ -6,6 +6,10 @@ waveleT is a package which allows you to launch an interactive application, the 
 waveleT()
 ```
 
+## Test waveleT online
+
+You can test this application online, here: https://analytics.huma-num.fr/Lise.Vaudor/waveleT
+
 ## Installation
 
 For now there is no stable version of this package on CRAN. If you want to install the dev version, make sure you have a very recent version of R (>3.2.2) and run:
