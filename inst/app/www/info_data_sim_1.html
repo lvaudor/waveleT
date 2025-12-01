@@ -1,0 +1,48 @@
+<h3>
+General principle:
+</h3>
+<p>
+You can generate your own signal (y<sub>1</sub>) as a sum of up to 3 sub-signals (y<sub>1,a</sub>, y<sub>1,b</sub>, and y<sub>1,c</sub>). You can generate a second signal (y<sub>2</sub>) in the same way.
+</p>
+<p>
+You can also add some noise (\(E_1\) and \(E_2\)) to these sub-signals.
+</p>
+<ul>
+  <li>\(y_1=y_{1,a}+y_{1,b}+y_{1,c} + E_1\)</li>
+  <li>\(y_2=y_{2,a}+y_{2,b}+y_{2,c} + E_2\)</li>
+</ul>
+
+<h3>
+Noise characteristics:
+</h3>
+
+<p>
+First you have to set the length <i>n</i> of your x-signals and y-signal(s). 
+You can generate some noise by setting &#963 to a value>0.</p>
+
+We define \(e_1\) and \(e_2\)  as signals of length <i>n</i> with distributions:
+<ul>
+  <li>\(e_1\sim\mathcal{N}(0,\sigma_1)\)</li>
+  <li>\(e_2\sim\mathcal{N}(0,\sigma_2)\)</li>
+</ul>
+
+If you set "Noise type" to "white" the noise will be:
+<ul>
+  <li>\(E_1=e_1\)</li>
+  <li>\(E_2=e_2\)</li>
+</ul>
+
+If you set "Noise type" to "red" the noise at a location \(x_i\) will be defined as resulting from an ARIMA model of order (1,0,0) with autoregressive coefficient set to \(\sigma/11\).
+
+<h3>
+Sub-signals characteristics:
+</h3>
+<p>
+Each sub-signal is designed as a sinusoid with a certain period T, amplitude A, and phase &#934: \(f(x)=Acos(2\pi(\frac{x}{T}+\phi))\).
+Breaks can be produced in the signals using x<sub>min</sub> and x<sub>max</sub>, so that:
+<ul>
+<li> If x \(\in [x_{min},x_{max}]\), \(y(x)=f(x)\)</li>
+<li> If x \(\notin [x_{min},x_{max}]\), \(y(x)=0\)</li>
+</ul>
+Setting amplitude to 0 for some sub-signals results in their having no effect on the signal itself.
+</p>

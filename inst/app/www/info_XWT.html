@@ -1,0 +1,47 @@
+<p>
+Here <b>Cross-Wavelet transforms</b> (XWTs) are computed with the 'xwt' function of the <a href='https://cran.r-project.org/web/packages/biwavelet/biwavelet.pdf' target="_blank"> R package 'biwavelet'</a>.
+</p>
+<br>
+
+
+<p>The wavelet coefficients \(W_{s,x}(y_1,y_2)\) resulting from a XWT correspond to:</p>
+$$
+W_{s,x}(y_1,y_2)=W_{s,x}(y_1)W_{s,x}(y_2)
+$$
+
+Hence it is a multiplication of:
+<ul>
+  <li>\(W_{s,x}(y1)\), the CWT of \(y_1\)</li>
+  <li>\(W_{s,x}(y2)\), the CWT of \(y_2\)</li>
+</ul> 
+<br>
+
+<p>For more information about Cross-Wavelet Transforms, please refer to:</p>
+<div class="csl-entry">
+<a href="http://home.chpc.utah.edu/~u0198116/CROSMAN_STUFF/USArray/Pressure_Lit_Review/wavelet_bams.pdf" target="_blank">
+Torrence, Christopher, and Gilbert P. Compo. 1998.
+A Practical Guide to Wavelet Analysis." 
+<i>Bulletin of the American Meteorological Society</i>
+79 (1): 61-78.
+</a>
+</div>
+
+<h3> Wavelet coherence </h3>
+<p>The 'rsq' coefficients \(R_{s,x}(y_1,y_2)\) resulting from a WTC correspond to:</p>
+$$
+R_{s,x}(y_1,y_2)=\frac
+{S(s^{-1}W_{s,x}(y_1)W_{s,x}(y_2)))}
+{S(s^{-1}W_{s,x}(y_1))S(s^{-1}W_{s,x}(y_2))}
+$$
+where S is a smoothing operator.
+<p>
+The wavelet coherence is comparable to a <b>localized correlation coefficient</b>.
+
+<p>For more information about Wavelet Coherence, please refer to:</p>
+<div class="csl-entry">
+<a href="http://noc.ac.uk/f/content/using-science/wtcnpg-11-561.pdf" target="_blank">
+Grinsted, Aslak, John C Moore, and Svetlana Jevrejeva. 2004. "Application of the Cross Wavelet Transform and Wavelet Coherence to Geophysical Time Series." 
+<i>Nonlinear Processes in Geophysics</i>
+11 (5/6): 561-66.
+</a>
+</div>

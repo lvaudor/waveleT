@@ -1,0 +1,48 @@
+<p>
+Here <b>Continuous Wavelet Transforms</b> (CWTs) are computed with the 'wt' function of the <a href='https://cran.r-project.org/web/packages/biwavelet/biwavelet.pdf' target="_blank"> R package 'biwavelet'</a>.
+</p>
+<br>
+<p>For more information about Continuous Wavelet Transforms, please refer to:</p>
+<div class="csl-entry">
+<a href="http://users.rowan.edu/~polikar/WAVELETS/WTtutorial.html" target="_blank">
+Polikar, Robi. 1995.
+"The Wavelet Tutorial." <i>The Engineer's Ultimate Guide to Wavelet Analysis: The Wavelet Tutorial</i>
+</a>
+</div>
+<div class="csl-entry">
+<a href="http://home.chpc.utah.edu/~u0198116/CROSMAN_STUFF/USArray/Pressure_Lit_Review/wavelet_bams.pdf" target="_blank">
+Torrence, Christopher, and Gilbert P. Compo. 1998.
+A Practical Guide to Wavelet Analysis. 
+<i>Bulletin of the American Meteorological Society</i>
+79 (1): 61-78.
+</a>
+</div>
+<br>
+<h3> Info </h3>
+<p> You might access different kinds of wavelet-related information:</p>
+<ul>
+<li><b>wavelet</b>: Wavelet coefficients: \(W_{s,x}\)</li>
+<li><b>power</b>: Wavelet power\(\mid\mid W_{s,x}\mid\mid\)</li>
+<li><b>power.corr.norm</b>: Bias-corrected and normalized wavelet power. Normalization consists in dividing coefficients by the variance of $Y$. For more details about the method for correction see:
+<div class="csl-entry">Liu, Yonggang, X. San Liang, and Robert H. Weisberg.
+2007. 
+"Rectification of the Bias in the Wavelet Power Spectrum." 
+<i>Journal of Atmospheric and Oceanic Technology</i>
+24 (12): 2093-2102.</div>
+</li>
+</ul>
+<br>
+<h3>Plot types</h3>
+<p>You might plot the wavelet information in 3 different ways.</p>
+<ol>
+<li>
+<b>Info=f(x,T)</b>: plots the information <b>according to location (x) and period (T)</b>.
+</li>
+<li>
+<b>Info=f(x)</b>: plots the information according to <b>location (x)</b>, for a certain value of period T<sub>0</sub>
+</li>
+<li>
+<b>Power=f(T)</b>: plots power according to <b>period (T)</b>. This information is averaged accross all locations x. For a given period T<sub>0</sub>, the range (light grey) and first and third quartiles (dark grey) of wavelet power coefficients are displayed.
+</li>
+</ol>
+

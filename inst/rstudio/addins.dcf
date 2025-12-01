@@ -1,0 +1,4 @@
+Name: Join Lines
+Description: Join selected lines or current line with the next one
+Binding: join_lines
+Interactive: true

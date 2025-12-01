@@ -1,12 +1,26 @@
 Package: waveleT
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("Lise", "Vaudor", email = "lise.vaudor@ens-lyon.fr", role = c("aut", "cre"))
-Description: This package launches an interactive application, the Wavelet Toolkat, which enable users to analyze series of data (time series or spatial series) through wavelet transforms in a user-friendly way.
-Depends: R (>= 3.2.2)
-Imports: utils,httpuv,mime,jsonlite,xtable,digest,htmltools,R6,methods,Rcpp,tools,stats,methods,fields,foreach,Rcpp,methods,spam,maps,codetools,utils,iterators,graphics,grid,shiny,biwavelet,wavelets
-License: GPLv3
+Type: Package
+Title: Use wavelet transforms to describe a signal (time series or spatial series) at multiple scales.
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Lise", "Vaudor",
+      email = "lise.vaudor@ens-lyon.fr",
+      role = c("aut", "cre")
+    )
+  )
+Description: This package provides a shiny app to help with the analysis of time or spatial series with wavelet transforms.       It relies on the `wavelets` R package (discrete wavelet transforms) and `biwavelet` R package (continuous package transforms)
+License: GPL-2
+Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1.9000
-Suggests: knitr,rmarkdown
-VignetteBuilder: knitr
+Imports: 
+    biwavelet,
+    golem,
+    shiny,
+    wavelets
+RoxygenNote: 7.3.3
+Depends: 
+    R (>= 3.5)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
