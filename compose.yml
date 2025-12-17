@@ -1,0 +1,6 @@
+services:
+  app:
+    image: ghcr.io/lvaudor/wavelet:latest
+    build: .
+    ports:
+      - "3840:3840"
