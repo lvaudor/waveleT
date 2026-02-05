@@ -9,5 +9,5 @@ run_app <- function(...) {
   )
 }
 
-
+options("shiny.port" = 3840, "shiny.host" = "0.0.0.0", "golem.app.prod" = TRUE)
 run_app()
