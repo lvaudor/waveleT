@@ -56,7 +56,7 @@ app_ui <- function(request) {
                       )#tabsetPanel
               ),#tabPanel ANALYSES
              tabPanel("OPTIONS",
-                      icon = icon("file-image-o", lib = "font-awesome"),
+                      icon = icon("eye", lib = "font-awesome"),
                       mod_options_ui("options")
              )
   )#navbarPage

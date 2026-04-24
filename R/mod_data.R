@@ -205,7 +205,10 @@ mod_data_ui <- function(id) {
          conditionalPanel(
            condition = sprintf("input['%s'] == true", "data-y2sim_exists"),
            data_series_panel_ui(ns,2)
-        )#conditionalPanel y2
+        ),#conditionalPanel y2
+        actionButton(ns("ok"), "OK",
+                     style = "background-color: #e60000; color: white; border-radius:5px; font-weight:bold; border:none; padding:8px 16px;")
+
         ),#conditionalPanel simdata
 #  Info y1 ###################################
 fluidRow(column(width=2,
@@ -246,7 +249,7 @@ conditionalPanel(
     )
   )#end fluidRow Info y2
   )# end conditionalPanel info y2
-)#tagList
+  )#tagList
 }
 
 
@@ -370,79 +373,75 @@ mod_data_server <- function(id,app_options, app_data) {
 
 
       ###### Reactive: format data into x,y1,y2 ######
-      format_data <- reactive({
-        #print("in format_data")
+      data_real <- reactive({
         req(v$ui_vars_ready)
-        data=fload_data()
-        x <- as.vector(data[, input$x])
-        y1 <- as.numeric(as.vector(data[, input$y1]))
-        ## If x is not a date
-        if(!input$x_is_date){
-          x=as.numeric(x)
-          if(all(is.na(x))) x <- 1:nrow(data)
-        }
-        ## If x is a date
-        if(input$x_is_date){
-          x=format_time(x,time_format=input$date_format)$x
-        }
+        req(input$real_or_sim == "real")
 
-        if(all(is.na(y1))) y1 <- x
-        mydata <- data.frame(x, y1)
+        data <- fload_data()
 
-        if(input$y2_exists){
-          y2 <- as.numeric(as.vector(data[, input$y2]))
-          if(all(is.na(y2))) y2 <- mydata$x
-          mydata <- data.frame(mydata, y2)
+        x <- data[[input$x]]
+        y1 <- data[[input$y1]]
+
+        if (!input$x_is_date) {
+          x <- as.numeric(x)
+          if (all(is.na(x))) x <- seq_along(y1)
+        } else {
+          x <- format_time(x, time_format = input$date_format)$x
         }
 
-        mydata <- na.omit(mydata)
-        mydata <- mydata[order(mydata$x),]
-        mydata
+        if (all(is.na(y1))) y1 <- x
+
+        df <- data.frame(x = x, y1 = as.numeric(y1))
+
+        if (isTruthy(input$y2_exists)) {
+          y2 <- as.numeric(data[[input$y2]])
+          if (all(is.na(y2))) y2 <- x
+          df$y2 <- y2
+        } else {
+          df$y2 <- df$y1
+        }
+
+        df <- na.omit(df)
+        df[order(df$x), ]
       })
+
+      # 2. Add data_sim()
+      data_sim <- reactive({
+        req(v$ui_vars_ready)
+        req(input$real_or_sim == "sim")
+
+        x <- seq_len(input$n)
+
+        y1 <- simSignal1()
+        y2 <- if (isTruthy(input$y2sim_exists)) simSignal2() else y1
+
+        data.frame(x = x, y1 = y1, y2 = y2)
+      })
+
       ###### Reactive: interpolated x values ######
       fxout <- reactive({
         req(v$ui_vars_ready)
-        #print("in fxout")
-        req(format_data(),input$step)
-        if(input$real_or_sim=="sim") return(1:input$n)
-        x = format_data()[[input$x]]
-        if(input$x_is_date){step=input$step}
-        if(!input$x_is_date){step=numeric_step(input$step)}
-        xout=seq(from= min(x),to=max(x),by=step)
-        if(length(xout) > 50000) xout <- seq(min(xout), max(xout), length.out=50000)
+
+        if (input$real_or_sim == "sim") {
+          return(seq_len(input$n))
+        }
+        df <- data_real()
+        step <- r_step()
+        xout <- seq(min(df$x), max(df$x), by = step)
+
+        if (length(xout) > 50000) {
+          xout <- seq(min(xout), max(xout), length.out = 50000)
+        }
+
         xout
-      })
 
       ###### Reactive: interpolated y1/y2 ######
       f_xy1y2 <- reactive({
-        req(v$ui_vars_ready)
-        #print("in f_xy1y2")
-        #req(fxout(),format_data())
-        xout <- fxout()
-        mydata <- format_data()
-
         if (input$real_or_sim == "sim") {
-          req(simSignal1)
-          y1 <- simSignal1()
-          y2 <- if (isTruthy(input$y2sim_exists)) simSignal2() else y1
+          data_sim()
         } else {
-          # Cas réel
-          validate(need("y1" %in% names(mydata), "y1 manquant dans format_data()"))
-          y1 <- approx(mydata$x, mydata$y1, xout = xout)$y
-          y2 <- if (isTruthy(input$y2_exists) && "y2" %in% names(mydata)) {
-            approx(mydata$x, mydata$y2, xout = xout)$y
-          } else {
-            y1
-          }
+          data_real()
         }
-
-        dat <- data.frame(x = xout, y1 = y1, y2 = y2)
-
-        # Renommer les colonnes selon input$x, input$y1, input$y2
-        colnames(dat) <- c(input$x, input$y1, input$y2)
-        na.omit(dat)
-        print(head(dat))
-        dat
       })
 
       # ###### Observers: update xlim sliders ######
@@ -453,19 +452,20 @@ mod_data_server <- function(id,app_options, app_data) {
       #   }
       # })
 
-      ###### Outputs: raw tables ######
       output$tabRaw1 <- renderTable({
-        mydata <- f_xy1y2()
-        mydata=mydata[,c(1,2)]
-        if(input$x_is_date) mydata[,1] <- as.character(mydata[,1])
-        mydata[1:5,]
+        req(v$ui_vars_ready)
+        df <- f_xy1y2()
+        head(df[, c("x", "y1")], 5)
       })
 
       output$tabRaw2 <- renderTable({
-        mydata <- f_xy1y2()[,c(1,3)]
-        if(input$x_is_date) mydata[,1] <- as.character(mydata[,1])
-        mydata[1:5,]
+        req(v$ui_vars_ready)
+        df <- f_xy1y2()
+        head(df[, c("x", "y2")], 5)
       })
+
+
+
 
       ###### Outputs: raw plots ######
       f_plotRaw1 <- function(){
@@ -480,14 +480,20 @@ mod_data_server <- function(id,app_options, app_data) {
         plot(dat[,1], dat[,3], type="l", xlab=colnames(dat)[1], ylab=colnames(dat)[3])
       }
 
-      output$plotRaw1 <- renderPlot({f_plotRaw1()},
+      output$plotRaw1 <- renderPlot({req(v$ui_vars_ready);f_plotRaw1()},
                                     height = reactive({app_options()$height}),
                                     width = reactive({app_options()$width})
                                     )
-      output$plotRaw2 <- renderPlot({f_plotRaw2()},
+      output$plotRaw2 <- renderPlot({req(v$ui_vars_ready);f_plotRaw2()},
                                     height = reactive({app_options()$height}),
                                     width = reactive({app_options()$width})
                                     )
+
+      # Prevent hidden output suspension
+      outputOptions(output, "tabRaw1", suspendWhenHidden = FALSE)
+      outputOptions(output, "plotRaw1", suspendWhenHidden = FALSE)
+      outputOptions(output, "tabRaw2", suspendWhenHidden = FALSE)
+      outputOptions(output, "plotRaw2", suspendWhenHidden = FALSE)
 
       ###### Output: number of points ######
       output$n_output <- renderText({ paste("n=",length(fxout())) })
@@ -641,7 +647,11 @@ mod_data_server <- function(id,app_options, app_data) {
       if(input$i3%%2!=0){wellPanel(includeHTML(app_sys("app/www/info_data_real_1.html")))}
     })
     output$info4=renderUI({
-        if(input$i4%%2!=0){wellPanel(includeHTML(app_sys("app/www/info_data_real_2.html")))}
+        if("i4" %in% names(input)){
+          if(input$i4%%2!=0){wellPanel(includeHTML(app_sys("app/www/info_data_real_2.html")))}
+        }else{
+          NULL
+        }
     })
     output$info5=renderUI({
         if(input$i5%%2!=0){wellPanel(includeHTML(app_sys("app/www/info_data_real_3.html")))}
@@ -663,8 +673,12 @@ mod_data_server <- function(id,app_options, app_data) {
     list(
       x = renderText({
         type <- "raw"
-        if (input$x_is_date) type <- "date"
-        fhoverx(input[[paste0("hover_", suffix)]], type, input$date_format)
+        if ("x_is_date" %in% names(input)){
+          if(input$x_is_date) {
+          type <- "date"
+          fhoverx(input[[paste0("hover_", suffix)]], type, input$date_format)
+        }
+      }
       }),
       y = renderText({
         fhovery(input[[paste0("hover_", suffix)]], type = "raw", input$date_format)
@@ -681,6 +695,7 @@ mod_data_server <- function(id,app_options, app_data) {
 
 
   app_data=reactive({
+    if("step" %in% names(input)){step=input$step}else{step=1}
     list(
         xy1y2 = f_xy1y2(),
         x = input$x,
@@ -689,7 +704,7 @@ mod_data_server <- function(id,app_options, app_data) {
         show_y2=r_show_y2(),
         n = max(1, input$n, na.rm=TRUE),
         nr = length(fxout()),
-        step = input$step,
+        step = step,
         real_or_sim=input$real_or_sim,
         x_is_date=input$x_is_date,
         date_format=input$date_format
